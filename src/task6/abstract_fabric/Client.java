@@ -8,4 +8,8 @@ public class Client {
     public Client(ListCreator<Integer> factory) {
         list = factory.factoryMethod();
     }
+
+    public List<Integer> getList() {
+        return list;
+    }
 }
