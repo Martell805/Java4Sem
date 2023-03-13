@@ -1,0 +1,4 @@
+pakeyg/Task12Application.java
+ pakeyg.Task12Application
+pakeyg/FileReader.java
+ pakeyg.FileReader

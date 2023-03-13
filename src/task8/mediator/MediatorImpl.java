@@ -6,7 +6,6 @@ import java.util.List;
 public class MediatorImpl implements Mediator{
     private final List<Colleague> colleagues = new ArrayList<>();
 
-
     @Override
     public void subscribe(Colleague colleague) {
         this.colleagues.add(colleague);

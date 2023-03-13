@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class' : 'Main'
+        )
+    }
+}
+
+task copyJar(type: Copy) {
+    dependsOn 'jar'
+    from file("$buildDir/libs/task9.jar")
+    into file("$rootDir/src/main/resources/")
+}
+
+task removeJar(type: Delete) {
+    delete file("$rootDir/src/main/resources/task9.jar")
+}
+
+task buildImage(type: Exec) {
+    dependsOn 'copyJar'
+    finalizedBy 'removeJar'
+    commandLine 'docker', 'build', '-t', 'task9', './src/main/resources/'
+}
+
+task runDocker(type: Exec) {
+    dependsOn 'buildImage'
+    finalizedBy 'removeContainer'
+    commandLine 'docker', 'run', '--name', 'task9'
+}
+
+task removeContainer(type:Exec) {
+    finalizedBy 'removeImage'
+    commandLine 'docker', 'container', 'rm', 'task9'
+}
+
+task removeImage(type: Exec) {
+    commandLine 'docker', 'image', 'rm', 'task9'
+}
